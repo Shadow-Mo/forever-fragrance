@@ -8,24 +8,65 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Order() {
   const [formData, setFormData] = useState({
-    name: "",
+    customerName: "",
     email: "",
     itemDescription: "",
     file: null as File | null,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, files } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: files ? files[0] : value,
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleFileChange = (e: any) => {
+    const file = e.target.files[0];
+    setFormData((prevData) => ({
+      ...prevData,
+      file: file,
+    }));
+  };
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
-    // Here you’d send data to your backend (e.g., via API route)
+
+    // if (!formData.file) {
+    //   alert("Please select a file");
+    //   return;
+    // }
+
+    // const reader = new FileReader();
+    // reader.onload = async () => {
+    //   const buffer = reader.result as ArrayBuffer;
+    //   const uint8Array = new Uint8Array(buffer);
+
+      try {
+        const response = await fetch(`https://fragrance-backend.onrender.com/labs/submit-order`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...formData,
+            // file: Array.from(uint8Array),
+          }),
+        });
+
+        if (response.ok) {
+          alert("Order submitted successfully!");
+        } else {
+          alert("Failed to submit order");
+        }
+      } catch (error) {
+        console.error("Error submitting order:", error);
+        alert("Error submitting order");
+      }
+    // };
+
+    // reader.readAsArrayBuffer(formData.file);
   };
 
   return (
@@ -37,11 +78,11 @@ export default function Order() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="name">Your Name</Label>
+              <Label htmlFor="customerName">Your Name</Label>
               <Input
-                id="name"
-                name="name"
-                value={formData.name}
+                id="customerName"
+                name="customerName"
+                value={formData.customerName}
                 onChange={handleChange}
                 required
               />
@@ -74,7 +115,7 @@ export default function Order() {
                 id="file"
                 name="file"
                 type="file"
-                onChange={handleChange}
+                onChange={handleFileChange}
                 accept="image/*"
               />
             </div>
