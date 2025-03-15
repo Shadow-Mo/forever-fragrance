@@ -7,8 +7,8 @@ const PendantGallery = () => {
         { id: 2, name: "Eternal Essence", image: "/pendant2.webp", description: "A fragrance-infused diffuser pendant." },
         { id: 3, name: "Whispered Words", image: "/pendant3.webp", description: "Engrave a name, date, or special message." },
         { id: 4, name: "Endless Love", image: "/pendant4.webp", description: "A heart-shaped pendant that symbolizes love and warmth." },
-        { id: 5, name: "Celestial Charm", image: "/pendant5.webp", description: "Gemstone-inset pendant representing birth months." },
-        { id: 6, name: "Everlasting Bloom", image: "/pendant6.webp", description: "A delicate floral or nature-inspired design." }
+        { id: 5, name: "Celestial Charm", image: "/gold-pendant.png", description: "Gemstone-inset pendant representing birth months." },
+        { id: 6, name: "Everlasting Bloom", image: "/silver-pendant.png", description: "A delicate floral or nature-inspired design." }
     ];
 
 

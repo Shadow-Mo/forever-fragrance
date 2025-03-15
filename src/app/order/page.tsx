@@ -11,7 +11,11 @@ export default function Order() {
     customerName: "",
     email: "",
     itemDescription: "",
-    file: null as File | null,
+    // file: null as File | null,
+    customerAddress: "",
+    customerCity: "",
+    customerState: "",
+    customerPincode: "",
   });
 
   const handleChange = (e: any) => {
